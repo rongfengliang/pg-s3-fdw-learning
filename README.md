@@ -12,7 +12,7 @@ docker-compose up -d
 
 ```code
 bucket_name: apps
-upload  users.csv
+upload  users.csv && apps.csv
 ```
 
 ```code
@@ -24,7 +24,7 @@ OPTIONS (
   wrapper 's3_fdw.S3ForeignDataWrapper'
 );
 //  创建外部表映射
-CREATE FOREIGN TABLE apps
+CREATE FOREIGN TABLE users
     (
         name text,
         age int,
@@ -36,6 +36,21 @@ OPTIONS
     (
         bucket_name 'apps',
         object_name 'users.csv',
+        access_key 'dalongrong',
+        secret_key 'dalongrong',
+        endpoint_url 'http://minio:9000'
+    );
+
+CREATE FOREIGN TABLE apps
+    (
+        name text,
+        version text
+    )
+SERVER multicorn_es
+OPTIONS
+    (
+        bucket_name 'apps',
+        object_name 'apps.csv',
         access_key 'dalongrong',
         secret_key 'dalongrong',
         endpoint_url 'http://minio:9000'
