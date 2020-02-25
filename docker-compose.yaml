@@ -1,5 +1,11 @@
 version: "3"
 services:
+  postgres-fdw:
+    image: dalongrong/pgspider:pg_cron
+    ports: 
+    - "5433:5432"
+    environment:
+      - "POSTGRES_PASSWORD=dalong"
   postgres:
     image: dalongrong/pg-s3-fdw:latest
     environment:

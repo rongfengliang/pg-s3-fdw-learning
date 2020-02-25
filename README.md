@@ -60,6 +60,30 @@ select * from users a join apps b on a.app=b.name;
 
 ```
 
+
+## with postgres fdw
+
+```code
+//  创建扩展
+create extension postgres_fdw;
+// 创建server
+CREATE SERVER pg_server
+  FOREIGN DATA WRAPPER postgres_fdw
+  OPTIONS (host 'postgres', dbname 'postgres');
+// 创建用户映射
+CREATE USER MAPPING FOR postgres
+  SERVER pg_server
+  OPTIONS (user 'postgres', password 'dalong');
+// 创建schema
+CREATE SCHEMA app;
+// 导入schema
+IMPORT FOREIGN SCHEMA public
+  FROM SERVER pg_server
+  INTO app;
+// 数据查询
+select * from app.articles_es;
+```
+
 ## Notes
 
 Dockerfile && source code [s3_fdw_py](https://github.com/smomni/s3_fdw_py)
