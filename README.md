@@ -55,6 +55,9 @@ OPTIONS
         secret_key 'dalongrong',
         endpoint_url 'http://minio:9000'
     );
+// with join 
+select * from users a join apps b on a.app=b.name;
+
 ```
 
 ## Notes
