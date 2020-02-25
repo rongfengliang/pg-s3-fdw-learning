@@ -1,0 +1,16 @@
+version: "3"
+services:
+  postgres:
+    image: dalongrong/pg-s3-fdw:latest
+    environment:
+      - POSTGRES_PASSWORD=dalong
+    ports:
+      - 5432:5432
+  minio:
+    image: minio/minio
+    environment:
+      - MINIO_ACCESS_KEY=dalongrong
+      - MINIO_SECRET_KEY=dalongrong
+    ports:
+      - 9000:9000
+    command: server /data
